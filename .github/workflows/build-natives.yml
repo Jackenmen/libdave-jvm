@@ -19,6 +19,9 @@ jobs:
     name: ${{ matrix.target }}
     runs-on: ${{ matrix.os }}
     container: ${{ matrix.container }}
+    permissions:
+      contents: read
+      packages: write
     strategy:
       fail-fast: false
       matrix:
@@ -166,8 +169,8 @@ jobs:
       - name: Build natives JAR (Unix)
         if: matrix.os != 'windows-2022'
         env:
-          ORG_GRADLE_PROJECT_MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
-          ORG_GRADLE_PROJECT_MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
+          ORG_GRADLE_PROJECT_MAVEN_USERNAME: ${{ github.actor }}
+          ORG_GRADLE_PROJECT_MAVEN_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
           ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
           ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_IN_MEMORY_KEY }}
@@ -180,8 +183,8 @@ jobs:
       - name: Build natives JAR (Windows)
         if: matrix.os == 'windows-2022'
         env:
-          ORG_GRADLE_PROJECT_MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
-          ORG_GRADLE_PROJECT_MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
+          ORG_GRADLE_PROJECT_MAVEN_USERNAME: ${{ github.actor }}
+          ORG_GRADLE_PROJECT_MAVEN_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
           ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
           ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_IN_MEMORY_KEY }}

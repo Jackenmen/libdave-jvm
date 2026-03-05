@@ -68,10 +68,7 @@ subprojects {
                 val mavenPassword = findProperty("MAVEN_PASSWORD") as String?
                 if (!mavenUsername.isNullOrEmpty() && !mavenPassword.isNullOrEmpty()) {
                     repositories {
-                        val snapshots = "https://maven.lavalink.dev/snapshots"
-                        val releases = "https://maven.lavalink.dev/releases"
-
-                        maven(if (gitVersionInfo.isCommitHash) snapshots else releases) {
+                        maven("https://maven.pkg.github.com/Jackenmen/libdave-jvm") {
                             credentials {
                                 username = mavenUsername
                                 password = mavenPassword
